@@ -1,0 +1,91 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+    (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>City service with database separate style</span>
+  <span class="example-spacer"></span>
+  <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
+  <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">share</mat-icon>
+</mat-toolbar>
+
+
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-list>
+      <div mat-subheader>Database</div>
+      <mat-list-item >
+        <mat-icon mat-list-icon>storage</mat-icon>
+        <div mat-line>PostgreSQL</div>
+        <div mat-line>tenant1, tenant2</div>
+      </mat-list-item>
+
+      <mat-list-item >
+        <mat-icon mat-list-icon>storage</mat-icon>
+        <div mat-line>MySQL</div>
+        <div mat-line>tenant3</div>
+      </mat-list-item>
+
+      <mat-list-item >
+        <mat-icon mat-list-icon>storage</mat-icon>
+        <div mat-line>H2 Database</div>
+        <div mat-line>tenant4</div>
+      </mat-list-item>
+
+      <mat-list-item >
+        <mat-icon mat-list-icon>storage</mat-icon>
+        <div mat-line>MS SQL</div>
+        <div mat-line>tenant5</div>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Select region</mat-label>
+        <mat-select [(value)]="tenant">
+          <mat-option value="tenant1">Vietnam</mat-option>
+          <mat-option value="tenant2">Thailand</mat-option>
+          <mat-option value="tenant3">Singapore</mat-option>
+          <mat-option value="tenant4">Mianma</mat-option>
+          <mat-option value="tenant5">United States</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>City name</mat-label>
+        <input matInput [(ngModel)]="cityName">
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="saveCity()">Save</button>
+
+    <button mat-raised-button color="primary" (click)="reloadCity()">Load</button>
+
+    <hr>
+    <div>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+  </div>
+</mat-drawer-container>
